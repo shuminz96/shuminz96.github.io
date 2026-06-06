@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shumin Zhao 赵舒旻</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400&family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:        #1a1f2e;
+      --ink-light:  #2e3448;
+      --ink-muted:  #566078;
+      --blue-deep:  #1d3557;
+      --blue-mid:   #2c5f8a;
+      --blue-light: #a8c4d8;
+      --blue-pale:  #e8f0f6;
+      --paper:      #f7f5f0;
+      --white:      #ffffff;
+      --rule:       rgba(44, 95, 138, 0.15);
+      --accent:     #2c5f8a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'EB Garamond', 'Noto Serif SC', Georgia, serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(247, 245, 240, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--blue-deep);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--blue-mid);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--blue-mid); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle ink-wash background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      right: -5%;
+      top: 10%;
+      width: 55%;
+      height: 80%;
+      background: radial-gradient(ellipse at 60% 40%, rgba(44,95,138,0.06) 0%, transparent 70%),
+                  radial-gradient(ellipse at 40% 70%, rgba(29,53,87,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Vertical Chinese rule line */
+    #hero::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 15%;
+      bottom: 15%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--rule) 30%, var(--rule) 70%, transparent);
+      pointer-events: none;
+    }
+
+    .hero-text {
+      padding-right: 5rem;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-overline {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-overline::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--blue-mid);
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--blue-deep);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .name-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-weight: 300;
+      color: var(--ink-muted);
+      margin-bottom: 2rem;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tag {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--blue-light);
+      color: var(--blue-mid);
+      background: var(--blue-pale);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.8rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--blue-deep);
+      color: var(--white);
+      border: 1px solid var(--blue-deep);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-mid);
+      border-color: var(--blue-mid);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue-deep);
+      border: 1px solid var(--blue-deep);
+    }
+
+    .btn-outline:hover {
+      background: var(--blue-pale);
+    }
+
+    .hero-side {
+      padding-left: 5rem;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .affiliation-card {
+      border-left: 2px solid var(--blue-light);
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .affiliation-card .institution {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue-mid);
+      margin-bottom: 0.4rem;
+    }
+
+    .affiliation-card .role {
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .affiliation-card .detail {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────── */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-num {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.65rem;
+      color: var(--blue-mid);
+      letter-spacing: 0.1em;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--blue-deep);
+      letter-spacing: 0.02em;
+    }
+
+    .section-zh { display: none; }
+
+    /* ── PHOTO SLOT ──────────────────────────────────── */
+    .photo-slot {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px solid var(--blue-light);
+      overflow: hidden;
+      margin-bottom: 1.8rem;
+      background: var(--blue-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-slot .photo-placeholder {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--blue-mid);
+      text-align: center;
+      padding: 1rem;
+      line-height: 1.8;
+    }
+
+    .hero-side-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* ── ABOUT ───────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      margin-bottom: 1.2rem;
+      color: var(--ink);
+      font-size: 1.02rem;
+    }
+
+    .about-text p:first-child {
+      color: var(--ink);
+      font-size: 1.08rem;
+    }
+
+    .about-sidebar h3 {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--blue-mid);
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+
+    .about-sidebar h3:first-child { margin-top: 0; }
+
+    .education-item {
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .education-item:last-child { border-bottom: none; }
+
+    .edu-degree {
+      font-size: 0.9rem;
+      color: var(--ink);
+      margin-bottom: 0.1rem;
+    }
+
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      font-style: italic;
+    }
+
+    .edu-year {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── RESEARCH ────────────────────────────────────── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+
+    .research-item {
+      padding: 2.2rem;
+      border-right: 1px solid var(--rule);
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .research-item:last-child { border-right: none; }
+    .research-item:hover { background: var(--blue-pale); }
+
+    .research-num {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--blue-light);
+      display: block;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .research-item h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--blue-deep);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .research-item p {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+
+    /* ── PUBLICATIONS ────────────────────────────────── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: start;
+    }
+
+    .pub-year {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+      padding-top: 0.2rem;
+      text-align: right;
+    }
+
+    .pub-content .pub-type {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue-mid);
+      margin-bottom: 0.4rem;
+    }
+
+    .pub-content .pub-title {
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+      line-height: 1.5;
+    }
+
+    .pub-content .pub-venue {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      font-style: italic;
+    }
+
+    /* ── TEACHING ────────────────────────────────────── */
+    .teaching-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .teaching-item {
+      padding: 2rem;
+      border: 1px solid var(--rule);
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .teaching-item:hover {
+      border-color: var(--blue-light);
+      box-shadow: 0 4px 24px rgba(44,95,138,0.06);
+    }
+
+    .teaching-item .course-code {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--blue-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .teaching-item h3 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .teaching-item .course-role {
+      font-size: 0.88rem;
+      color: var(--ink);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    .teaching-item .course-period {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.62rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-text p {
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--ink-light);
+      font-size: 0.95rem;
+      transition: color 0.3s;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { color: var(--blue-mid); }
+
+    .contact-link .link-label {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-muted);
+      width: 70px;
+      flex-shrink: 0;
+    }
+
+    .contact-link:hover .link-label { color: var(--blue-mid); }
+
+    .contact-quote {
+      border-left: 2px solid var(--blue-light);
+      padding: 2rem 2rem 2rem 2.5rem;
+    }
+
+    .contact-quote blockquote {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--ink-light);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .contact-quote cite {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      font-style: normal;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+    }
+
+    /* ── ANIMATIONS ──────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+
+      #hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 4rem;
+      }
+      #hero::after { display: none; }
+      .hero-text { padding-right: 0; margin-bottom: 3rem; }
+      .hero-side { padding-left: 0; }
+
+      section { padding: 4rem 1.5rem; }
+
+      .about-grid,
+      .contact-inner,
+      .teaching-list { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .research-grid {
+        grid-template-columns: 1fr;
+      }
+      .research-item { border-right: none; border-bottom: 1px solid var(--rule); }
+      .research-item:last-child { border-bottom: none; }
+
+      .pub-item { grid-template-columns: 50px 1fr; gap: 1rem; }
+
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">赵舒旻 · Shumin Zhao</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="opacity:1;transform:none;padding-top:8rem;">
+  <div class="hero-text">
+    <div class="hero-overline">PhD Student · STEM Education</div>
+    <h1>Shumin Zhao</h1>
+    <div class="name-zh">赵舒旻</div>
+    <p class="hero-desc">
+      Studying how teachers and learners make sense of generative AI — 
+      at the intersection of technology, pedagogy, and identity.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Generative AI in K-12</span>
+      <span class="tag">Teacher Technology Adoption</span>
+      <span class="tag">TPACK</span>
+      <span class="tag">Design-Based Research</span>
+      <span class="tag">Science Education</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#research" class="btn btn-primary">View Research</a>
+      <a href="mailto:shuminz@unr.edu" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-side">
+    <div class="hero-side-inner">
+      <!-- PHOTO: replace src with your image path, e.g. src="images/photo.jpg" -->
+      <div class="photo-slot">
+        <div class="photo-placeholder">Your photo<br>here<br>·<br>Replace src<br>with your image</div>
+      </div>
+    </div>
+    <div class="affiliation-card">
+      <div class="institution">University of Nevada, Reno</div>
+      <div class="role">PhD Student in STEM Education</div>
+      <div class="detail">Expected graduation: Spring 2028</div>
+    </div>
+    <div class="affiliation-card">
+      <div class="institution">EDEL 443 / 643</div>
+      <div class="role">Instructor, K-8 Science Methods</div>
+      <div class="detail">College of Education, UNR</div>
+    </div>
+    <div class="affiliation-card">
+      <div class="institution">NSF RITEL Project</div>
+      <div class="role">Graduate Research Assistant</div>
+      <div class="detail">AR / LLM-based pedagogical agents in K-8 classrooms</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I am a third-year PhD student in STEM Education at the University of Nevada, Reno, 
+        where my research focuses on the intersection of generative AI and K-12 education — 
+        particularly how pre-service and in-service teachers adopt, adapt, and make sense of 
+        AI tools in their professional practice.
+      </p>
+      <p>
+        My dissertation applies Design-Based Research to understand how pre-service science 
+        teachers engage in AI-assisted lesson planning, examining the interplay of technological 
+        knowledge, pedagogical reasoning, and professional identity formation.
+      </p>
+      <p>
+        Before joining UNR, I taught General Technology at Xiamen No. 1 High School of Fujian 
+        Province — one of China's key provincial high schools — a formative experience that 
+        deeply informs my interest in teacher marginalization and non-core subject identities.
+      </p>
+      <p>
+        I hold an M.Ed. in Science and Technology Education from East China Normal University 
+        (Shanghai) and a B.S. in Educational Technology from Fujian Normal University. 
+        I am originally from Fuzhou, Fujian, China.
+      </p>
+    </div>
+    <div class="about-sidebar">
+      <h3>Education</h3>
+      <div class="education-item">
+        <div class="edu-degree">Ph.D. in STEM Education <em>(in progress)</em></div>
+        <div class="edu-school">University of Nevada, Reno</div>
+        <div class="edu-year">2023 – 2028 (expected)</div>
+      </div>
+      <div class="education-item">
+        <div class="edu-degree">M.Ed. in Science & Technology Education</div>
+        <div class="edu-school">East China Normal University, Shanghai</div>
+        <div class="edu-year">2018 – 2020</div>
+      </div>
+      <div class="education-item">
+        <div class="edu-degree">B.S. in Educational Technology</div>
+        <div class="edu-school">Fujian Normal University, Fuzhou</div>
+        <div class="edu-year">2014 – 2018</div>
+      </div>
+
+      <h3>Awards</h3>
+      <div class="education-item">
+        <div class="edu-degree">First Prize, Young Teachers Basic Skills Competition</div>
+        <div class="edu-school">Xiamen, Fujian</div>
+        <div class="edu-year">2022</div>
+      </div>
+      <div class="education-item">
+        <div class="edu-degree">Pepsi Graduate Student Scholarship</div>
+        <div class="edu-school">University of Nevada, Reno</div>
+        <div class="edu-year">2024</div>
+      </div>
+      <div class="education-item">
+        <div class="edu-degree">GSA Travel Grant</div>
+        <div class="edu-school">University of Nevada, Reno</div>
+        <div class="edu-year">2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Research</h2>
+  </div>
+  <div class="research-grid">
+    <div class="research-item">
+      <span class="research-num">01</span>
+      <h3>Generative AI in K-12 Education</h3>
+      <p>How teachers and students interact with large language models in classroom contexts, 
+         with emphasis on lesson planning, prompt engineering, and epistemic trust.</p>
+    </div>
+    <div class="research-item">
+      <span class="research-num">02</span>
+      <h3>Teacher Technology Adoption & TPACK</h3>
+      <p>Examining how pre-service and in-service teachers develop technological pedagogical 
+         content knowledge when integrating AI tools into science instruction.</p>
+    </div>
+    <div class="research-item">
+      <span class="research-num">03</span>
+      <h3>Teacher Identity & Professional Marginalization</h3>
+      <p>Qualitative and ethnographic inquiry into how non-core subject teachers — especially 
+         in China — construct professional identities within institutional constraints.</p>
+    </div>
+  </div>
+  <div class="research-grid" style="margin-top:0; border-top:none;">
+    <div class="research-item">
+      <span class="research-num">04</span>
+      <h3>Chinese Teachers on Social Media</h3>
+      <p>Ethnographic fieldwork on Xiaohongshu (小红书), studying how Chinese teachers discuss, 
+         share, and negotiate AI adoption in their professional communities online.</p>
+    </div>
+    <div class="research-item">
+      <span class="research-num">05</span>
+      <h3>AR & LLM-based Pedagogical Agents</h3>
+      <p>As part of the NSF RITEL project, investigating augmented reality and language-model 
+         agents as instructional supports in elementary science classrooms.</p>
+    </div>
+    <div class="research-item">
+      <span class="research-num">06</span>
+      <h3>Design-Based Research</h3>
+      <p>Methodological interest in iterative, participatory design cycles as a framework 
+         for studying and improving technology-integrated learning environments.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Publications & Presentations</h2>
+  </div>
+  <div class="pub-list">
+    <div class="pub-item">
+      <div class="pub-year">2026</div>
+      <div class="pub-content">
+        <div class="pub-type">Conference Presentation · AERA</div>
+        <div class="pub-title">Learning to Prompt, Prompting to Learn: Novice Programmers' Self-Regulated Learning with GenAI</div>
+        <div class="pub-venue">American Educational Research Association Annual Meeting, Los Angeles, CA · April 2026</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2026</div>
+      <div class="pub-content">
+        <div class="pub-type">Conference Presentation · NARST</div>
+        <div class="pub-title">"They are scientists, not women scientists": A Qualitative Case Study of Female Scientists on Xiaohongshu</div>
+        <div class="pub-venue">NARST Annual International Conference · March 2026</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2019</div>
+      <div class="pub-content">
+        <div class="pub-type">Journal Article</div>
+        <div class="pub-title">Characteristics and Influencing Factors of Science Popularization in TikTok: An Empirical Study Based on Python Data of 14 Typical Accounts</div>
+        <div class="pub-venue">Chen, B. &amp; Zhao, S. · <em>Modern Audiovisual</em>, (12), 50–55</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section id="teaching">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Teaching</h2>
+  </div>
+  <div class="teaching-list">
+    <div class="teaching-item">
+      <div class="course-code">EDEL 443 / 643 · UNR</div>
+      <h3>Methods for Teaching PK-8 Science</h3>
+      <div class="course-role">Instructor of Record</div>
+      <div class="course-period">Jan 2025 – May 2026</div>
+    </div>
+    <div class="teaching-item">
+      <div class="course-code">EDEL 443 / 643 · UNR</div>
+      <h3>Methods for Teaching PK-8 Science</h3>
+      <div class="course-role">Graduate Teaching Assistant</div>
+      <div class="course-period">Sep 2024 – Dec 2024</div>
+    </div>
+    <div class="teaching-item">
+      <div class="course-code">EDEL 433 / 633 · UNR</div>
+      <h3>Methods for Teaching PK-8 Mathematics</h3>
+      <div class="course-role">Graduate Teaching Assistant</div>
+      <div class="course-period">Sep 2023 – May 2026</div>
+    </div>
+    <div class="teaching-item">
+      <div class="course-code">Xiamen No.1 High School · Fujian</div>
+      <h3>General Technology (通用技术)</h3>
+      <div class="course-role">Full-time Teacher (Bianzhi)</div>
+      <div class="course-period">2020 – 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Contact</h2>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-text">
+      <p>
+        I welcome conversations about research collaborations, teaching and learning with AI, 
+        and the experiences of teachers navigating technological change.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:shuminz@unr.edu" class="contact-link">
+          <span class="link-label">Email</span>
+          shuminz@unr.edu
+        </a>
+        <a href="#" class="contact-link">
+          <span class="link-label">Office</span>
+          William J. Raggio Building, UNR · Reno, NV
+        </a>
+        <a href="#" class="contact-link">
+          <span class="link-label">GitHub</span>
+          github.com / [your handle]
+        </a>
+        <a href="#" class="contact-link">
+          <span class="link-label">Scholar</span>
+          Google Scholar [add link]
+        </a>
+      </div>
+    </div>
+    <div class="contact-quote">
+      <blockquote>
+        "Education is not the filling of a pail, but the lighting of a fire."
+      </blockquote>
+      <cite>— W.B. Yeats</cite>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Shumin Zhao 赵舒旻 · University of Nevada, Reno</p>
+  <p>Built with care · Reno &amp; Fuzhou</p>
+</footer>
+
+<script>
+  // Scroll-triggered section reveal
+  const sections = document.querySelectorAll('section:not(#hero)');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
